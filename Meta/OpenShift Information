@@ -1,0 +1,12 @@
+git clone ssh://518e71e2e0b8cd5493000052@pepupchat-fm0nk.rhcloud.com/~/git/pepupchat.git/
+
+
+MySQL Info: -
+
+	Root User: adminwYnTlsT
+	Root Password: ug3CpdMMja6n
+	Database Name: pepupchat
+
+	Connection URL: mysql://$OPENSHIFT_MYSQL_DB_HOST:$OPENSHIFT_MYSQL_DB_PORT/
+
+https://pepupchat-fm0nk.rhcloud.com/phpmyadmin/

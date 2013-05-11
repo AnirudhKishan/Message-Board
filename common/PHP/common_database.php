@@ -2,7 +2,14 @@
 
 $db_type = "mysql";
 
-$hostname = "localhost";
+if ( getenv ( OPENSHIFT_MYSQL_DB_HOST ) )
+{
+	$hostname = getenv ( OPENSHIFT_MYSQL_DB_HOST ) . ":" . getenv ( OPENSHIFT_MYSQL_DB_PORT );
+}
+else
+{
+	$hostname = "localhost";
+}
 
 $username = "messageBoard";
 
