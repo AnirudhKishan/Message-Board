@@ -1,6 +1,6 @@
 var lastID;
 
-setInterval ( updateMessages, 1000 );
+setInterval ( updateMessages, 5000 );
 
 function initialise ( )
 {
