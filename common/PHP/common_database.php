@@ -4,7 +4,7 @@ $db_type = "mysql";
 
 if ( getenv ( 'OPENSHIFT_MYSQL_DB_HOST' ) )
 {
-	$hostname = "mysql://" . getenv ( 'OPENSHIFT_MYSQL_DB_HOST' ) . ":" . getenv ( 'OPENSHIFT_MYSQL_DB_PORT' ) . "/";
+	$hostname = getenv ( 'OPENSHIFT_MYSQL_DB_HOST' );
 }
 else
 {
