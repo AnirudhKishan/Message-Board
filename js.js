@@ -16,7 +16,7 @@ function updateMessages ( )
 
 	for ( var key in newMessages )
 	{
-		document.getElementById ( "messages" ).innerHTML = document.getElementById ( "messages" ).innerHTML + newMessages[key] + "<br>";
+		document.getElementById ( "messages" ).innerHTML = document.getElementById ( "messages" ).innerHTML + "<b>" + newMessages[key][0] + "</b> : " + newMessages[key][1] + "<br>";
 	}
 }
 
@@ -34,7 +34,7 @@ function getMessagesAfter ( id )
 
 	for ( var id in fetchedMessages )
 	{
-		messagesToReturn.push ( fetchedMessages[id].message );
+		messagesToReturn.push ( [ fetchedMessages[id].username, fetchedMessages[id].message ] );
 		lastID = fetchedMessages[id].ID;
 	}
 
