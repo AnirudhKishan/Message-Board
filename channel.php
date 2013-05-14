@@ -33,7 +33,7 @@ $_SESSION['channelID'] =  $channelID;
 		<div id="messages"></div>
 		<hr>
 
-		<input id="postMessage" onKeyUp="postMessage(event)"><button onClick="postMessage()">Submit</button>
+		<input id="postMessage" onKeyUp="postMessage(event)"><button onClick="postMessage()">Submit</button><div id="status" style="display: inline-block; color: lightgray; text-decoration: line-through;">Sending</div>
 
 	</body>
 

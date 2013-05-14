@@ -1,19 +1,22 @@
 var lastID;
 
-setInterval ( updateMessages, 5000 );
-
 function initialise ( )
 {
 	lastID = 0;
 
 	updateMessages ( );
+	
+	setInterval ( updateMessages, 500 );
 }
 
 
 function updateMessages ( )
 {
-	var newMessages = getMessagesAfter ( lastID );
+	getMessagesAfter ( lastID );	
+}
 
+function setMessage ( newMessages )
+{
 	for ( var key in newMessages )
 	{
 		document.getElementById ( "messages" ).innerHTML = document.getElementById ( "messages" ).innerHTML + "<b>" + newMessages[key][0] + "</b> : " + newMessages[key][1] + "<br>";
@@ -22,23 +25,29 @@ function updateMessages ( )
 
 function getMessagesAfter ( id )
 {
-	var httpRequest;
 	var messagesToReturn = new Array ( );
 
-	httpRequest = new XMLHttpRequest ( );	
+	var httpRequest = new XMLHttpRequest ( );	
+	httpRequest.onreadystatechange = fetchMessagesAfter;
 	
-	httpRequest.open ( "GET", "fetch.php?lastID=" + lastID, false );
+	httpRequest.open ( "GET", "fetch.php?lastID=" + lastID, true );
 	httpRequest.send ( );
-
-	var fetchedMessages =  JSON.parse ( httpRequest.responseText );
-
-	for ( var id in fetchedMessages )
+	
+	function fetchMessagesAfter ( )
 	{
-		messagesToReturn.push ( [ fetchedMessages[id].username, fetchedMessages[id].message ] );
-		lastID = fetchedMessages[id].ID;
+		if ( httpRequest.readyState === 4 )
+		{
+			var fetchedMessages =  JSON.parse ( httpRequest.responseText );
+			
+			for ( var id in fetchedMessages )
+			{
+				messagesToReturn.push ( [ fetchedMessages[id].username, fetchedMessages[id].message ] );
+				lastID = fetchedMessages[id].ID;
+			}
+			
+			setMessage ( messagesToReturn );
+		}
 	}
-
-	return messagesToReturn;
 
 }
 
@@ -59,9 +68,14 @@ function postMessage ( event )
 	
 	httpRequest.open ( "POST", "put.php", false );
 	httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	
+	document.getElementById ( 'status' ).style.color = "blue";
+	document.getElementById ( 'status' ).style.textDecoration = "none";
 	httpRequest.send ( 'message=' + message );
-
+	
 	updateMessages ( );
-
+	
+	document.getElementById ( 'status' ).style.color = "lightgray";
+	document.getElementById ( 'status' ).style.textDecoration = "line-through";
 	document.getElementById ( 'postMessage' ).value = "";
 }
