@@ -60,6 +60,9 @@ function postMessage ( event )
 		if ( event.keyCode != 13 )
 			return false;
 	}
+	
+	document.getElementById ( 'status' ).style.color = "blue";
+	document.getElementById ( 'status' ).style.textDecoration = "none";
 
 	var message = document.getElementById ( 'postMessage' ).value;
 
@@ -69,13 +72,11 @@ function postMessage ( event )
 	httpRequest.open ( "POST", "put.php", false );
 	httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 	
-	document.getElementById ( 'status' ).style.color = "blue";
-	document.getElementById ( 'status' ).style.textDecoration = "none";
 	httpRequest.send ( 'message=' + message );
 	
 	updateMessages ( );
 	
+	document.getElementById ( 'postMessage' ).value = "";
 	document.getElementById ( 'status' ).style.color = "lightgray";
 	document.getElementById ( 'status' ).style.textDecoration = "line-through";
-	document.getElementById ( 'postMessage' ).value = "";
 }
