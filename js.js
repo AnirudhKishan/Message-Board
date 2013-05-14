@@ -1,8 +1,10 @@
 var lastID;
+var gettingMessage;
 
 function initialise ( )
 {
 	lastID = 0;
+	gettingMessage = false;
 
 	updateMessages ( );
 	
@@ -12,7 +14,10 @@ function initialise ( )
 
 function updateMessages ( )
 {
-	getMessagesAfter ( lastID );	
+	if ( gettingMessage === false )
+	{
+		getMessagesAfter ( lastID );	
+	}
 }
 
 function setMessage ( newMessages )
@@ -25,6 +30,8 @@ function setMessage ( newMessages )
 
 function getMessagesAfter ( id )
 {
+	gettingMessage = true;
+	
 	var messagesToReturn = new Array ( );
 
 	var httpRequest = new XMLHttpRequest ( );	
@@ -46,6 +53,7 @@ function getMessagesAfter ( id )
 			}
 			
 			setMessage ( messagesToReturn );
+			gettingMessage = false;
 		}
 	}
 
