@@ -6,7 +6,7 @@ function initialise ( )
 
 	updateMessages ( );
 	
-	setInterval ( updateMessages, 500 );
+	setInterval ( updateMessages, 5000 );
 }
 
 
