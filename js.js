@@ -1,10 +1,12 @@
 var lastID;
 var gettingMessage;
+var sending;
 
 function initialise ( )
 {
 	lastID = 0;
 	gettingMessage = false;
+	sending = false;
 
 	updateMessages ( );
 	
@@ -16,7 +18,7 @@ function updateMessages ( )
 {
 	if ( gettingMessage === false )
 	{
-		getMessagesAfter ( lastID );	
+		getMessagesAfter ( lastID );
 	}
 }
 
@@ -26,6 +28,7 @@ function setMessage ( newMessages )
 	{
 		document.getElementById ( "messages" ).innerHTML = document.getElementById ( "messages" ).innerHTML + "<b>" + newMessages[key][0] + "</b> : " + newMessages[key][1] + "<br>";
 	}
+	document.getElementById( "messages" ).scrollTop = document.getElementById( "messages" ).scrollHeight;	
 }
 
 function getMessagesAfter ( id )
@@ -54,6 +57,13 @@ function getMessagesAfter ( id )
 			
 			setMessage ( messagesToReturn );
 			gettingMessage = false;
+			
+			if ( sending == true )
+			{
+					document.getElementById ( 'postMessage' ).value = "";
+					document.getElementById ( 'status' ).style.color = "lightgray";
+					sending = false;
+			}
 		}
 	}
 
@@ -71,6 +81,7 @@ function postMessage ( event )
 	
 	document.getElementById ( 'status' ).style.color = "blue";
 	document.getElementById ( 'status' ).style.textDecoration = "none";
+	sending = true;
 
 	var message = document.getElementById ( 'postMessage' ).value;
 
@@ -84,7 +95,5 @@ function postMessage ( event )
 	
 	updateMessages ( );
 	
-	document.getElementById ( 'postMessage' ).value = "";
-	document.getElementById ( 'status' ).style.color = "lightgray";
 	document.getElementById ( 'status' ).style.textDecoration = "line-through";
 }
