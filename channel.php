@@ -23,17 +23,39 @@ $_SESSION['channelID'] =  $channelID;
 
 		<script src="js.js"></script>
 
+		<style>
+		body,html
+		{
+  		height:98%;
+		}
+
+		#container
+		{
+			height: 98%;
+		}
+
+		#messages
+		{
+			height: 90%;
+			overflow-y: scroll;
+		}
+		</style>
+
 	</head>
 
 	<body onLoad="initialise()">
 	
-		<a href="Log Out/logOut.php">Log Out</a>
+		<div id="logout">
+			<a href="Log Out/logOut.php">Log Out</a>
+		</div>
 
-		<hr>
-		<div id="messages"></div>
-		<hr>
+		<div id="container">
+			<hr>
+			<div id="messages"></div>
+			<hr>
 
-		<input id="postMessage" onKeyUp="postMessage(event)"><button onClick="postMessage()">Submit</button><div id="status" style="display: inline-block; color: lightgray; text-decoration: line-through;">Sending</div>
+			<input id="postMessage" onKeyUp="postMessage(event)"><button onClick="postMessage()">Submit</button><div id="status" style="display: inline-block; color: lightgray; text-decoration: line-through;">Sending</div>
+		</div>
 
 	</body>
 
