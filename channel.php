@@ -37,7 +37,7 @@ $_SESSION['channelID'] =  $channelID;
 		#messages
 		{
 			height: 90%;
-			overflow-y: scroll;
+			overflow-y: auto;
 		}
 		</style>
 
