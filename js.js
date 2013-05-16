@@ -24,11 +24,13 @@ function updateMessages ( )
 
 function setMessage ( newMessages )
 {
-	for ( var key in newMessages )
+	var key;
+	for ( key in newMessages )
 	{
 		document.getElementById ( "messages" ).innerHTML = document.getElementById ( "messages" ).innerHTML + "<b>" + newMessages[key][0] + "</b> : " + newMessages[key][1] + "<br>";
 	}
-	document.getElementById( "messages" ).scrollTop = document.getElementById( "messages" ).scrollHeight;	
+	if ( key != undefined )
+		document.getElementById( "messages" ).scrollTop = document.getElementById( "messages" ).scrollHeight;	
 }
 
 function getMessagesAfter ( id )
