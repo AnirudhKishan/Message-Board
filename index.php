@@ -13,7 +13,7 @@ require_once ( 'common/PHP/common_database.php' );
 	$stmt->execute ( );
 	$rslts = $stmt->fetchAll();
 
-	$channelIDs = [];
+	$channelIDs = array();
 	foreach($rslts as $rslt)
 	{
 		array_push($channelIDs, $rslt['channel']);
