@@ -10,7 +10,7 @@ function initialise ( )
 
 	updateMessages_start ( );
 	
-	setInterval ( updateMessages, 5000 );
+	setInterval ( updateMessages, 1000 );
 }
 
 function updateMessages_start ( )
