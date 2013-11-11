@@ -10,6 +10,8 @@ require_once ( '../common/PHP/common_session validate.php' );
 
 session_destroy();
 
+header("Location: ../Log In/login_front.php");
+
 ?>
 
 <!DOCTYPE html>

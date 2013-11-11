@@ -8,9 +8,57 @@ function initialise ( )
 	gettingMessage = false;
 	sending = false;
 
-	updateMessages ( );
+	updateMessages_start ( );
 	
 	setInterval ( updateMessages, 5000 );
+}
+
+function updateMessages_start ( )
+{
+	if ( gettingMessage === false )
+	{
+		getLast10Messages ( );
+	}
+}
+
+function getLast10Messages ( id )
+{
+	gettingMessage = true;
+	
+	var messagesToReturn = new Array ( );
+
+	var httpRequest = new XMLHttpRequest ( );	
+	httpRequest.onreadystatechange = fetchMessages_start;
+	
+	httpRequest.open ( "GET", "fetch.php" );
+	httpRequest.send ( );
+	
+	function fetchMessages_start ( )
+	{
+		if ( httpRequest.readyState === 4 )
+		{
+			var fetchedMessages =  JSON.parse ( httpRequest.responseText );
+			
+			for ( var id in fetchedMessages )
+			{
+				messagesToReturn.push ( [ fetchedMessages[id].username, fetchedMessages[id].message ] );
+				if ( fetchedMessages[id].ID > lastID ) 
+					lastID = fetchedMessages[id].ID;
+			}
+			
+			messagesToReturn.reverse ( );
+			
+			setMessage ( messagesToReturn );
+			gettingMessage = false;
+			
+			if ( sending == true )
+			{
+					document.getElementById ( 'postMessage' ).value = "";
+					document.getElementById ( 'status' ).style.color = "lightgray";
+					sending = false;
+			}
+		}
+	}
 }
 
 
@@ -54,7 +102,8 @@ function getMessagesAfter ( id )
 			for ( var id in fetchedMessages )
 			{
 				messagesToReturn.push ( [ fetchedMessages[id].username, fetchedMessages[id].message ] );
-				lastID = fetchedMessages[id].ID;
+				if ( fetchedMessages[id].ID > lastID ) 
+					lastID = fetchedMessages[id].ID;
 			}
 			
 			setMessage ( messagesToReturn );
@@ -81,8 +130,7 @@ function postMessage ( event )
 			return false;
 	}
 	
-	document.getElementById ( 'status' ).style.color = "blue";
-	document.getElementById ( 'status' ).style.textDecoration = "none";
+	document.getElementById ( 'status' ).style.display = "inline-block";
 	sending = true;
 
 	var message = document.getElementById ( 'postMessage' ).value;
@@ -97,5 +145,5 @@ function postMessage ( event )
 	
 	updateMessages ( );
 	
-	document.getElementById ( 'status' ).style.textDecoration = "line-through";
+	document.getElementById ( 'status' ).style.display = "none";
 }

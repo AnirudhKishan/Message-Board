@@ -36,9 +36,10 @@ else
 
 if ( $err_no == 0 )
 {
-	echo "Successful Signup!";
 	echo "<br><br>";
-	echo "<a href=\"../Log In/login_front.php\">Go to Login</a>";
+	echo "<center>Successful Signup!</center>";
+	echo "<br><br>";
+	echo "<div style=\"text-align: right\"><a href=\"../Log In/login_front.php\">Go to Login</a></div>";
 }
 else if ( $err_no == 1 )
 {
