@@ -14,7 +14,7 @@ if ( isset ( $_GET['lastID'] ) )
 	$query = "SELECT `ID`, `userID`, `message` FROM `messages` WHERE `ID`>:id AND `channel`=:channel ORDER BY `time` DESC";
 	$stmt = $dbh->prepare ( $query );
 	$stmt->bindParam ( ":id", $_GET['lastID'] );
-	$stmt->bindParam ( ":channel", $_SESSION['channelID'] );
+	$stmt->bindParam ( ":channel",  $_GET['channelID'] );
 	$stmt->execute ( );
 	$rslt = $stmt->fetchAll ( PDO::FETCH_ASSOC );
 

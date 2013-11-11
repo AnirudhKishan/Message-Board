@@ -90,7 +90,7 @@ function getMessagesAfter ( id )
 	var httpRequest = new XMLHttpRequest ( );	
 	httpRequest.onreadystatechange = fetchMessagesAfter;
 	
-	httpRequest.open ( "GET", "fetch.php?lastID=" + lastID, true );
+	httpRequest.open ( "GET", "fetch.php?lastID=" + lastID + "&channelID=" + getURLParameter("channelID"), true );
 	httpRequest.send ( );
 	
 	function fetchMessagesAfter ( )
@@ -133,7 +133,7 @@ function postMessage ( event )
 	document.getElementById ( 'status' ).style.display = "inline-block";
 	sending = true;
 
-	var message = document.getElementById ( 'postMessage' ).value;
+	var data = [document.getElementById ( 'postMessage' ).value, getURLParameter("channelID")];
 
 	var httpRequest;
 	httpRequest = new XMLHttpRequest ( );	
@@ -141,9 +141,15 @@ function postMessage ( event )
 	httpRequest.open ( "POST", "put.php", false );
 	httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 	
-	httpRequest.send ( 'message=' + message );
+	httpRequest.send ( 'data=' + JSON.stringify(data) );
 	
 	updateMessages ( );
 	
 	document.getElementById ( 'status' ).style.display = "none";
+}
+
+function getURLParameter(name) {
+    return decodeURI(
+        (RegExp(name + '=' + '(.+?)(&|$)').exec(location.search)||[,null])[1]
+    );
 }
